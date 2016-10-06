@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Five in a row</title>
+		<link rel="stylesheet" href="lib/jquery-ui-1.11.4/jquery-ui.min.css">
+		<link rel="stylesheet" href="css/gomoku.css">
+		<script type="text/javascript" src="lib/jquery-1.11.3.js"></script>
+		<script type="text/javascript" src="lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="lib/underscore.js"></script>
+		<script type="text/javascript" src="lib/backbone.js"></script>
+		<script type="text/javascript" src="AI.js"></script>
+		<script type="text/javascript" src="gomoku.js"></script>
+	</head>
+	<body>
+		<div id='main'>
+			<canvas id="board" width="200" height="100" style="padding:5px;border:1px solid #d3d3d3;">
+			Your browser does not support the HTML5 canvas tag.</canvas>
+			<canvas id="chess" width="200" height="100" style="padding:5px;">
+			Your browser does not support the HTML5 canvas tag.</canvas>
+			<audio id='chessPutSound'>
+				<source src="ChessPut.mp3" type="audio/mpeg">
+				<source src="ChessPut.wav" type="audio/wav">
+			</audio>
+			<div id="chessSetting">
+				<div id="boardSetting">
+					<input type="radio" id="board_15_15" name="boardSetting"><label for="board_15_15">15 * 15</label>
+					<input type="radio" id="board_19_19" name="boardSetting" checked><label for="board_19_19">19 * 19</label>
+				</div>
+				<div id="playerOrder">
+					<input type="radio" id="firstPlayer" name="playerOrder"><label for="firstPlayer">First Player</label>
+					<input type="radio" id="secondPlayer" name="playerOrder" checked><label for="secondPlayer">Second Player</label>
+				</div>
+				<div id="buttons">
+					<button id='btnStart'>Start</button>
+					<button id='btnRestart'>Restart</button>
+					<button id='btnQuit'>Quit</button>
+				</div>
+			</div>
+			<div id='loseDialog' title='You Lose'>
+				<p>You Lose! Play Again?</p>
+			</div>
+			<div id='winDialog' title='You Win'>
+				<p>Congratulation! Awesome! You win the game! Wanna win again?</p>
+			</div>
+		</div>
+	</body>
+</html>

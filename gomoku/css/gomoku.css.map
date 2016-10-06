@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,IAAK;EACJ,IAAI,EAAE,IAAI;;AAEX,YAAa;EACZ,UAAU,EAAE,+CAAgD;EAC5D,eAAe,EAAE,KAAK",
+"sources": ["gomoku.scss"],
+"names": [],
+"file": "gomoku.css"
+}
