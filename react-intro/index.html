@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Introduction for building an app by React</title>
+    <meta name="description" content="Introduction for building an app by React">
+    <meta name="author" content="Xi Jinxin">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/league.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <style>
+    .reveal .ppt-image {
+        border-style: none;
+        box-shadow: none;
+        background-color: transparent;
+        width: 800px;
+    }
+
+    .reveal .redux-tool__comments {
+        float: right;
+        margin-right: -101px;
+        margin-top: 20px;
+        font-size: 0.7em;
+    }
+    </style>
+    <!-- Printing and PDF exports -->
+    <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="reveal">
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1><a>React Intro</a></h1>
+                <h3></h3>
+                <p>
+                    <small><a href="mailto: jinxin.xi@ge.com"></a></small>
+                </p>
+            </section>
+            <section>
+                <h2><a>Items</a></h2>
+                <ul>
+                    <li>Why React</li>
+                    <li>Quick Start</li>
+                    <li>Front-end and Back-end separation</li>
+                    <li>React + Redux + React Router</li>
+                </ul>
+            </section>
+            <section>
+                <section>
+                    <h3><a>Why React</a></h3>
+                    <ul>
+                        <li>Easy</li>
+                        <li>JSX</li>
+                        <li>Component-based Architecture</li>
+                        <li>Virtual Dom</li>
+                        <li>Learn Once, Write Anywhere</li>
+                        <li>Great Devtools</li>
+                        <li>Great community</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Easy</h3>
+                    <ul>
+                        <li>JSX</li>
+                        <li>React Component</li>
+                    </ul>
+                    <aside class="notes">
+                        Easy to learn and get started
+                    </aside>
+                </section>
+                <section>
+                    <h3>JSX</h3>
+                    <ul>
+                        <li>JSX is a preprocessor step that adds <span class="fragment highlight-green visible">XML syntax</span> to JavaScript.</li>
+                        <li>Just like XML, JSX tags have a <span class="fragment highlight-green visible">tag name</span>, <span class="fragment highlight-green visible">attributes</span>, and <span class="fragment highlight-green visible">children</span>.</li>
+                    </ul>
+                    <aside class="notes">
+                        JSX makes programming easier
+                    </aside>
+                </section>
+                <section>
+                    <h3>Sample: Hello Message</h3>
+                    <img class="ppt-image" style="width: 100%" data-src="images/hellomessage.png">
+                    <aside class="notes">
+                        JSX makes programming easier
+                    </aside>
+                </section>
+                <section>
+                    <h3>JSX Benifits</h3>
+                    <img class="ppt-image" style="width: 75%" data-src="images/jsxbefinites.png">
+                    <aside class="notes">
+                        JSX使用声明式直观的定义用户界面，除了另类的HTML标记之外，并没有引入其它任何新的概念，这也就意味着，你不需要学习第三方模板库，可以利用熟悉的JavaScript语法去构建界面，你的思维过程中其实已经不需要存在模板的概念，需要考虑的仅仅是如何用代码构建整个界面。 这种自然而直观的方式使得编程更加简单并且让代码更容易理解。
+                    </aside>
+                </section>
+                <section>
+                    <h3>Component-based Architecture</h3>
+                </section>
+                <section>
+                    <h3>Component-based Architecture - Sample</h3>
+                    <img class="ppt-image" style="width: 100%" data-src="images/componentdesign_1.png">
+                </section>
+                <section>
+                    <h3>Component-based Architecture - Sample</h3>
+                    <img class="ppt-image" style="width: 100%" data-src="images/componentdesign_2.png">
+                </section>
+                <section>
+                    <h3>Component-based Architecture - Sample</h3>
+                    <img class="ppt-image" style="width: 100%" data-src="images/componentdesign_3.png">
+                </section>
+                <section>
+                    <h3>Component-based Architecture - Benefits</h3>
+                    <ul>
+                        <li>SRP</li>
+                        <li>Loose Coupling</li>
+                        <li>Parallel Development</li>
+                        <li>Resuable Components</li>
+                        <li>Increase Maintainability/Scalability/Extensibility</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Virtual Dom</h3>
+                </section>
+                <section>
+                    <h3>Old way's Performance Tuning - Dom Scripting</h3>
+                    <ul>
+                        <li>Dom batch update from documentFragment to document</li>
+                        <li>Dom batch update at clonednode, then switch original node with cloned one</li>
+                        <li>Dom batch update at hidden node, then display the node</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Virtual Dom</h3>
+                    <img class="ppt-image" style="width: 100%" data-src="images/virtual_dom.png">
+                </section>
+                <section>
+                    <h3>Virtual Dom - Benefits</h3>
+                    <ul>
+                        <li>Good performance.</li>
+                        <li>Hand over the dirty work to the library, keep focus at business logic.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Learn Once Run Everywhere</h3>
+                </section>
+                <section>
+                    <h3>LORE - Isomorphic/Universal JavaScript - SEO</h3>
+                    <h3></h3>
+                    <img class="ppt-image" style="width: 100%" data-src="images/universal_javascript.png">
+                </section>
+                <section>
+                    <h3>LORE - Isomorphic/Universal Apps</h3>
+                    <img class="ppt-image" style="width: 80%" data-src="images/universal_apps.jpg">
+                </section>
+                <section>
+                    <h3>Great DevTools</h3>
+                </section>
+                <section>
+                    <h3>React DevTools</h3>
+                    <img class="ppt-image" style="width: 80%" data-src="images/reactdevtools.png">
+                </section>
+                <section>
+                    <h3>Redux DevTools</h3>
+                    <img class="ppt-image" style="width: 70%" data-src="images/reduxdevtools.png">
+                    <ul class="redux-tool__comments">
+                        <li>Persist state on page reloading</li>
+                        <li>Time travelling</li>
+                        <li>Skip (Cancel) actions</li>
+                        <li>Reorder actions</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>React Hot Loader</h3>
+                    <img class="ppt-image" style="width: 80%" data-src="images/reacthotloader.png">
+                </section>
+                <section>
+                    <h3>Great Community & Ecosystem</h3>
+                </section>
+                <section>
+                    <h3>Great Community & Ecosystem</h3>
+                    <img class="ppt-image" style="width: 80%" data-src="images/greatcommunity.png">
+                </section>
+                <section>
+                    <h3>Great Community & Ecosystem</h3>
+                    <img class="ppt-image" style="width: 50%" data-src="images/sitesusingreact.png">
+                </section>
+                <section>
+                    <h3>Great Community & Ecosystem</h3>
+                    <img class="ppt-image" style="width: 9lo0%" data-src="images/ecosystem.png">
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>Quick Start</h3>
+                    <ul>
+                        <li>Create React App</li>
+                        <li>BoilerPlate X</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Create React App</h3>
+                    <ul>
+                        <li>Built-in Webpack/dev server Configuration
+                            <ul>
+                                <li>JS, CSS, Images Loader</li>
+                                <li>Proxy</li>
+                            </ul>
+                        </li>
+                        <li>Test - Jest
+                        </li>
+                        <li>PWA</li>
+                        <li>ES6 Polyfills
+                            <ul>
+                                <li>Exponentiation Operator</li>
+                                <li>Object Rest/Spread Properties</li>
+                                <li>Dynamic import()</li>
+                                <li>Class Fields and Static Properties</li>
+                                <li>Async/Await</li>
+                                <li>Object.assign/fetch/Promise</li>
+                            </ul></li>
+                        <li>Syntax Highlighting/Lint/Debug</li>
+                    </ul>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>Front-end and Back-end separation</h3>
+                </section>
+                <section>
+                    <h3>Build Front-end Mock Server</h3>
+                    <img class="ppt-image" style="width: 750px" data-src="images/mockserver.png">
+                </section>
+            </section>
+                        <section>
+                <section>
+                    <h3>React Best Practice</h3>
+                    <p>React + Redux + React Router</p>
+                </section>
+                <section>
+                    <h3>Organizing application state with Redux</h3>
+                    <img class="ppt-image" style="width: 1280px" data-src="images/redux_2.png">
+                </section>
+                <section>
+                    <h3>Organizing application state with Redux - Sample</h3>
+                    <img class="ppt-image" style="width: 1280px" data-src="images/redux.png">
+                </section>
+                <section>
+                    <h3>Bind UI & URL using React Router </h3>
+                    <img class="ppt-image" style="width: 650px" data-src="images/reactrouter.png">
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'convex', // none/fade/slide/convex/concave/zoom
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [{
+            src: 'lib/js/classList.js',
+            condition: function() {
+                return !document.body.classList;
+            }
+        }, {
+            src: 'plugin/markdown/marked.js',
+            condition: function() {
+                return !!document.querySelector('[data-markdown]');
+            }
+        }, {
+            src: 'plugin/markdown/markdown.js',
+            condition: function() {
+                return !!document.querySelector('[data-markdown]');
+            }
+        }, {
+            src: 'plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }, {
+            src: 'plugin/zoom-js/zoom.js',
+            async: true
+        }, {
+            src: 'plugin/notes/notes.js',
+            async: true
+        }]
+    });
+    </script>
+</body>
+
+</html>
