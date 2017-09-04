@@ -1,0 +1,928 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Steps to build a modern front-end app with React</title>
+    <meta name="description" content="Steps to build a modern front-end app with React">
+    <meta name="author" content="Xi Jinxin">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/league.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <style>
+    .reveal .ppt-image {
+        border-style: none;
+        box-shadow: none;
+        background-color: transparent;
+        width: 800px;
+    }
+
+    .reveal .redux-tool__comments {
+        float: right;
+        margin-right: -101px;
+        margin-top: 20px;
+        font-size: 0.7em;
+    }
+    </style>
+    <!-- Printing and PDF exports -->
+    <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="reveal">
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1 style="font-size:3em;">Steps to build a modern web application with React</h1>
+                <h3></h3>
+                <p>
+                    <small><a href="mailto: jonathan.xi@ge.com">jonathan.xi@ge.com</a></small>
+                </p>
+            </section>
+            <section>
+                <h2>Items</h2>
+                <ul>
+                    <li>Why React</li>
+                    <li>Steps
+                        <ul>
+                            <li>Quick Start</li>
+                            <li>React + Redux + React Router</li>
+                            <li>Front-end and Back-end separation</li>
+                            <li>Performance Tuning</li>
+                        </ul>
+                    </li>
+                    <li>Demo</li>
+                    <li>Thoughts</li>
+                </ul>
+            </section>
+            <section>
+                <section>
+                    <h2><a>Why React</a></h2>
+                    <ul>
+                        <li>Easy</li>
+                        <li>Component-based Architecture</li>
+                        <li>Virtual Dom</li>
+                        <li>Learn Once, Write Anywhere</li>
+                        <li>Great Devtools</li>
+                        <li>Great community</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Easy</h3>
+                    <ul>
+                        <li>JSX</li>
+                        <li>React Component</li>
+                    </ul>
+                    <aside class="notes">
+                        Easy to learn and get started
+                    </aside>
+                </section>
+                <section>
+                    <h3>Sample: Hello Message</h3>
+                    <img class="ppt-image" style="width: 100%" data-src="images/hellomessage.png">
+                    <aside class="notes">
+                        JSX makes programming easier
+                    </aside>
+                </section>
+                <section>
+                    <h3>All test-able JavaScript</h3>
+                    <img class="ppt-image" style="width: 75%" data-src="images/jsxbefinites.png">
+                    <aside class="notes">
+                        JSX使用声明式直观的定义用户界面，除了另类的HTML标记之外，并没有引入其它任何新的概念，这也就意味着，你不需要学习第三方模板库，可以利用熟悉的JavaScript语法去构建界面，你的思维过程中其实已经不需要存在模板的概念，需要考虑的仅仅是如何用代码构建整个界面。 这种自然而直观的方式使得编程更加简单并且让代码更容易理解。
+                    </aside>
+                </section>
+                <section>
+                    <h3>Component-based Architecture</h3>
+                </section>
+                <section>
+                    <h3>Component-based Architecture - Sample</h3>
+                    <img class="ppt-image" style="width: 100%" data-src="images/componentdesign_1.png">
+                </section>
+                <section>
+                    <h3>Component-based Architecture - Sample</h3>
+                    <img class="ppt-image" style="width: 100%" data-src="images/componentdesign_2.png">
+                </section>
+                <section>
+                    <h3>Component-based Architecture - Sample</h3>
+                    <img class="ppt-image" style="width: 100%" data-src="images/componentdesign_3.png">
+                </section>
+                <section>
+                    <h3>Component-based Architecture - Benefits</h3>
+                    <ul>
+                        <li>SRP</li>
+                        <li>Loose Coupling</li>
+                        <li>Parallel Development</li>
+                        <li>Resuable Components</li>
+                        <li>Increase Maintainability/Scalability/Extensibility</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Virtual Dom</h3>
+                </section>
+                <section>
+                    <h3>Old way's Performance Tuning - Dom Scripting</h3>
+                    <ul>
+                        <li>Dom batch update from documentFragment to document</li>
+                        <li>Dom batch update at clonednode, then switch original node with cloned one</li>
+                        <li>Dom batch update at hidden node, then display the node</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Virtual Dom</h3>
+                    <img class="ppt-image" style="width: 100%" data-src="images/virtual_dom.png">
+                </section>
+                <section>
+                    <h3>Virtual Dom - Benefits</h3>
+                    <ul>
+                        <li>Good performance.</li>
+                        <li>Hand over the dirty work to the library, keep focus at business logic.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Learn Once Run Everywhere</h3>
+                </section>
+                <section>
+                    <h3>LORE - Isomorphic/Universal JavaScript - SEO</h3>
+                    <h3></h3>
+                    <img class="ppt-image" style="width: 100%" data-src="images/universal_javascript.png">
+                </section>
+                <section>
+                    <h3>LORE - Isomorphic/Universal Apps</h3>
+                    <img class="ppt-image" style="width: 80%" data-src="images/universal_apps.jpg">
+                </section>
+                <section>
+                    <h3>Great DevTools</h3>
+                </section>
+                <section>
+                    <h3>React DevTools</h3>
+                    <img class="ppt-image" style="width: 80%" data-src="images/reactdevtools.png">
+                </section>
+                <section>
+                    <h3>Redux DevTools</h3>
+                    <img class="ppt-image" style="width: 70%" data-src="images/reduxdevtools.png">
+                    <ul class="redux-tool__comments">
+                        <li>Persist state on page reloading</li>
+                        <li>Time travelling</li>
+                        <li>Skip (Cancel) actions</li>
+                        <li>Reorder actions</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>React Hot Loader</h3>
+                    <img class="ppt-image" style="width: 80%" data-src="images/reacthotloader.png">
+                </section>
+                <section>
+                    <h3>Great Community & Ecosystem</h3>
+                </section>
+                <section>
+                    <h3>Great Community & Ecosystem</h3>
+                    <img class="ppt-image" style="width: 80%" data-src="images/greatcommunity.png">
+                </section>
+                <section>
+                    <h3>Great Community & Ecosystem</h3>
+                    <img class="ppt-image" style="width: 50%" data-src="images/sitesusingreact.png">
+                </section>
+                <section>
+                    <h3>Great Community & Ecosystem</h3>
+                    <img class="ppt-image" style="width: 9lo0%" data-src="images/ecosystem.png">
+                </section>
+                <section>
+                    <h3><a>Why React</a></h3>
+                    <ul>
+                        <li>Easy to learn and get started</li>
+                        <li>Component-based Architecture add -ilities</li>
+                        <li>Virtual Dom - fast</li>
+                        <li>Learn Once, Write Anywhere</li>
+                        <li>Great Devtools</li>
+                        <li>Great community</li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2><a>Steps to build Web Application with React</a></h2>
+                    <ul>
+                        <li>Quick Start
+                            <ul>
+                                <li>Setup JavaScript Development Environment</li>
+                                <li>Create React App</li>
+                            </ul>
+                        </li>
+                        <li>React + Redux + React Router</li>
+                        <li>Front-end and Back-end separation</li>
+                        <li>Performance Tuning</li>
+                        <li>Demo</li>
+                        <li>Overal Diagram</li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3><a>Quick Start</a></h3>
+                    <ul>
+                        <li>Setup JavaScript Development Environment</li>
+                        <li>Create React App</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Setup JavaScript Development Environment</h3>
+                </section>
+                <section>
+                    <h3>Expectations for IDE</h3>
+                    <ul>
+                        <li>Code auto formatting/fixing & linting</li>
+                        <li>Code Navigation</li>
+                        <li>Auto complete</li>
+                        <li>VCS integration</li>
+                        <li>Debugging</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>VS Code</h3>
+                    <ul>
+                        <li>IntelliSense
+                            <ul>
+                                <li>code-completion</li>
+                                <li>parameter-info</li>
+                                <li>quick-info</li>
+                                <li>member-lists</li>
+                                <li>code-navigation</li>
+                            </ul>
+                        </li>
+                        <li>Debug code right from the editor</li>
+                        <li>Git commands built-in</li>
+                        <li>VCS integration</li>
+                        <li>Debugging</li>
+                        <li>Plugins for auto-formatting/linting etc.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Install VS Code</h3>
+                    <ul>
+                        <li>Follow <a href="https://code.visualstudio.com/docs/setup/mac"> official Installtion Document </a>to install VS Code.</li>
+                        <li>Install <a href="https://github.com/euler-ui/react-sample/blob/master/docs/images/VS_Code_Extensions.png">Extensions</a></li>
+                        <img class="ppt-image" style="width: 550px;height: 500px;float:right;" data-src="./images/VS_Code_Extensions.png">
+                        <li>Add <a href="https://github.com/euler-ui/react-sample/blob/master/docs/vscode/settings.json">settings</a></li>
+                        <img class="ppt-image" style="width: 35%;position: absolute;left:0;" data-src="./images/VS_Code_Settings.png">
+                    </ul>
+                </section>
+                <section>
+                    <h3>Create React App</h3> BoilerPlate X -> Create React App
+                </section>
+                <section>
+                    <ul>
+                        <li>Built-in Webpack/dev server Configuration
+                            <ul>
+                                <li>JS, CSS, Images Loader</li>
+                                <li>Proxy</li>
+                            </ul>
+                        </li>
+                        <li>Test - Jest
+                        </li>
+                        <li>Supported Language Features and Polyfills
+                            <ul>
+                                <li>ES6</li>
+                                <li>Exponentiation Operator</li>
+                                <li>Object Rest/Spread Properties</li>
+                                <li>Dynamic import()</li>
+                                <li>Class Fields and Static Properties</li>
+                                <li>Object.assign/fetch/Promise</li>
+                                <li>Async/Await</li>
+                            </ul>
+                        </li>
+                        <li>PWA</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Supported Language Features and Polyfills</h3>
+                </section>
+                <section>
+                    <h3><a href="https://github.com/lukehoban/es6features">ES6</a></h3>
+                    <ul>
+                        <li>arrows</li>
+                        <li>classes</li>
+                        <li>enhanced object literals</li>
+                        <li>template strings</li>
+                        <li>destructuring</li>
+                        <li>default + rest + spread</li>
+                        <li>let + const</li>
+                        <li>iterators + for..of</li>
+                        <li>modules</li>
+                        <li>promises</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><a href="https://github.com/rwaldron/exponentiation-operator">Exponentiation Operator(ES2016 Stage 3)</a></h3>
+                    <pre><code class="hljs" data-trim contenteditable>
+// x ** y
+
+let squared = 2 ** 2;
+// same as: 2 * 2
+
+let cubed = 2 ** 3;
+// same as: 2 * 2 * 2
+                    </code></pre>
+                    <pre><code class="hljs" data-trim contenteditable>
+// x **= y
+
+let a = 2;
+a **= 2;
+// same as: a = a * a;
+
+
+
+let b = 3;
+b **= 3;
+// same as: b = b * b * b;
+                    </code></pre>
+                </section>
+                <section>
+                    <h3><a href="https://github.com/tc39/proposal-object-rest-spread">Object Rest/Spread Properties(Stage 3)</a></h3>
+                    <pre><code class="hljs" data-trim contenteditable>
+let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
+x; // 1
+y; // 2
+z; // { a: 3, b: 4 }
+                    </code></pre>
+                    <pre><code class="hljs" data-trim contenteditable>
+let n = { x, y, ...z };
+n; // { x: 1, y: 2, a: 3, b: 4 }
+                    </code></pre>
+                </section>
+                <section>
+                    <h3><a href="https://github.com/tc39/proposal-object-rest-spread">Dynamic import(Stage 3)</a></h3>
+                    <pre><code class="hljs" data-trim contenteditable>
+// modueA.js
+const moduleA = 'Hello';
+
+export { moduleA };
+                    </code></pre>
+                    <pre><code class="hljs" data-trim contenteditable>
+// App.js
+import React, { Component } from 'react';
+
+class App extends Component {
+  handleClick = () => {
+    import('./moduleA')
+      .then(({ moduleA }) => {
+        // Use moduleA
+      })
+      .catch(err => {
+        // Handle failure
+      });
+  };
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.handleClick}>Load</button>
+      </div>
+    );
+  }
+}
+
+export default App;
+                    </code></pre>
+                    <ul style="float:left">
+                        <li>
+                            <h5><a href="http://serverless-stack.com/chapters/code-splitting-in-create-react-app.html">Dynamic import with React Router</a></h5></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><a href="https://github.com/tc39/proposal-class-public-fields">Class Fields and Static Properties(stage 2)</a></h3>
+                    <pre><code class="hljs" data-trim contenteditable>
+//before
+class DataGrid extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      items: [],
+    };
+
+
+  ...
+  }
+DataGrid.propTypes = {
+  options: PropTypes.objectOf(PropTypes.any),
+  columns: PropTypes.arrayOf(PropTypes.object),
+  rows: PropTypes.arrayOf(PropTypes.object),
+  events: PropTypes.arrayOf(PropTypes.func),
+};
+
+DataGrid.defaultProps = {
+  options: {
+    rowHeight: 25,
+    forceFitColumns: true,
+  },
+  columns: [],
+  rows: [],
+  events: [],
+};
+                    </code></pre>
+                </section>
+                <section>
+                    <h3><a href="https://github.com/tc39/proposal-class-public-fields">Class Fields and Static Properties(stage 2)</a></h3>
+                    <pre><code class="hljs" data-trim contenteditable>
+// after
+class DataGrid extends React.Component {
+  static propTypes = {
+   options: PropTypes.objectOf(PropTypes.any),
+   columns: PropTypes.arrayOf(PropTypes.object),
+   rows: PropTypes.arrayOf(PropTypes.object),
+   events: PropTypes.arrayOf(PropTypes.func),
+  };
+
+  static defaultProps = {
+    options: {
+      rowHeight: 25,
+      forceFitColumns: true,
+    },
+    columns: [],
+    rows: [],
+    events: [],
+  };
+  state = {
+    items: [],
+  };
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3><a href="https://github.com/tc39/ecmascript-asyncawait">Async & Await(ES2017 stage 3)</a></h3>
+                    <pre><code class="hljs" data-trim contenteditable>
+// before
+function asyncTask () {  
+  return functionA()
+    .then((valueA) => functionB(valueA))
+    .then((valueB) => functionC(valueB))
+    .then((valueC) => functionD(valueC))
+    .catch((err) => logger.error(err))
+}
+// after
+async function asyncTask () {  
+  try {
+    const valueA = await functionA()
+    const valueB = await functionB(valueA)
+    const valueC = await functionC(valueB)
+    return await functionD(valueC)
+  } catch (err) {
+    logger.error(err)
+  }
+}
+                    </code></pre>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3><a>React Stack</a></h3>
+                    <p>React + Redux + React Router</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>React</h3>
+                    <ul>
+                        <li>JSX</li>
+                        <li>Functional and Class Components</li>
+                        <li>Rules</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>What is JSX</h3>
+                    <ul>
+                        <li>JSX is a preprocessor step that adds <span class="fragment highlight-green visible">XML syntax</span> to JavaScript.</li>
+                        <li>Just like XML, JSX tags have a <span class="fragment highlight-green visible">tag name</span>, <span class="fragment highlight-green visible">attributes</span>, and <span class="fragment highlight-green visible">children</span>.</li>
+                    </ul>
+                    <aside class="notes">
+                    </aside>
+                </section>
+                <section>
+                    <h3>JSX makes programming easier</h3>
+                    <ul>
+                        <li>You can embed any JavaScript expression in JSX.</li>
+                        <li>JSX is an Expression.</li>
+                        <li>You may use quotes to specify string literals as attributes,</li>
+                        <li>You may also use curly braces to embed a JavaScript expression.</li>
+                    </ul>
+                    <aside class="notes">
+                        You can embed any JavaScript expression in JSX by wrapping it in curly braces.
+                    </aside>
+                </section>
+                <section>
+                    <h3>Functional and Class Components</h3>
+                    <ul>
+                        <li>Functional component</li>
+                        <pre><code class="hljs" data-trim contenteditable>
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+                        </code></pre>
+                        <li>Class component</li>
+                        <pre><code class="hljs" data-trim contenteditable>
+class Welcome extends React.Component {
+  render() {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
+}
+                        </code></pre>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Functional Components</h3>
+                    <ul>
+                        <li>Has props</li>
+                        <li>No State</li>
+                        <li>No this/class</li>
+                        <li>No React component lifecyle methods</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Class Components</h3>
+                    <ul>
+                        <li>Has props</li>
+                        <li>Can have state</li>
+                        <li>Has this</li>
+                        <li>Have Lifecycle methods</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Class Components Lifecycle methods</h3>
+                    <ul>
+                        <li>Mounting
+                            <ul>
+                                <li>constructor()</li>
+                                <li>componentWillMount()</li>
+                                <li>render()</li>
+                                <li>componentDidMount()</li>
+                            </ul>
+                        </li>
+                        <li>Updating
+                            <ul>
+                                <li>componentWillReceiveProps()</li>
+                                <li>shouldComponentUpdate()</li>
+                                <li>componentWillUpdate()</li>
+                                <li>render() </li>
+                                <li>componentDidUpdate()</li>
+                            </ul>
+                        </li>
+                        <li>Unmounting
+                            <ul>
+                                <li>componentWillUnmount()</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Rules</h3>
+                    <ul>
+                        <li>Don't mutate props, <a href="https://facebook.github.io/react/docs/lifting-state-up.html">lift a state up</a> and pass props from the state of upper component</li>
+                        <li>Don't mutate state, only do this.setState to set new state</li>
+                        <li>Use <a href="https://facebook.github.io/react/docs/reconciliation.html#keys">key</a> at Array.map</li>
+                        <li>Use <a href="https://facebook.github.io/react/docs/composition-vs-inheritance.html">composition instead of inheritance</a> to reuse code between components </li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>Redux</h3>
+                    <ul>
+                        <li>Organizing application state with Redux</li>
+                        <li>Dumb and Smart Components</li>
+                        <li>Flux Standard Action</li>
+                        <li>Reducer Structure</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Organizing application state with Redux</h3>
+                    <img class="ppt-image" style="width: 1280px" data-src="images/redux_2.png">
+                </section>
+                <section>
+                    <h3><a href="http://redux.js.org/docs/basics/UsageWithReact.html">Dumb(Presentational) and smart(Container) components</a></h3>
+                    <table style="font-size: 26px">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Presentational Components</th>
+                                <th>Container Components</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Purpose</td>
+                                <td>How things look (markup, styles)</td>
+                                <td>How things work (data fetching, state updates)</td>
+                            </tr>
+                            <tr>
+                                <td>Aware of Redux</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>To read data</td>
+                                <td>Read data from props</td>
+                                <td>Subscribe to Redux state</td>
+                            </tr>
+                            <tr>
+                                <td>To change data</td>
+                                <td>Invoke callbacks from props</td>
+                                <td>Dispatch Redux actions</td>
+                            </tr>
+                            <tr>
+                                <td>Are written</td>
+                                <td>By hand</td>
+                                <td>Usually generated by React Redux</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3><a href="https://github.com/acdlite/flux-standard-action">Flux standard action</a></h3>
+                    <ul>
+                        <li>An action MUST
+                            <ul>
+                                <li>be a plain JavaScript object.</li>
+                                <li>have a type property.</li>
+                            </ul>
+                        </li>
+                        <li>An action MAY
+                            <ul>
+                                <li>have an error property.</li>
+                                <li>have a payload property.</li>
+                                <li>have a meta property.</li>
+                            </ul>
+                        </li>
+                        <li>An action MUST NOT include properties other than type, payload, error, and meta.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><a href="http://redux.js.org/docs/recipes/reducers/BasicReducerStructure.html">Reducer Structure</a></h3>
+                    <ul>
+                        <li>Domain data: data that the application needs to show, use, or modify</li>
+                        <li>App state: data that is specific to the application's behavior</li>
+                        <li>UI state: data that represents how the UI is currently displayed</li>
+                        <pre><code class="hljs" data-trim contenteditable>
+{
+    domainData1 : {},
+    domainData2 : {},
+    appState1 : {},
+    appState2 : {},
+    ui : {
+        uiState1 : {},
+        uiState2 : {},
+    }
+}
+                        </code></pre>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Use Ducks Pattern to reduce code boilerplate</h3>
+                    <img class="ppt-image" style="width: 1280px" data-src="images/redux_ducks.png">
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>React Router</h3>
+                    <ul>
+                        <li>Bind UI & URL using React Router</li>
+                        <li>Philosophy</li>
+                        <li>&lt;Router&gt;</li>
+                        <li>&lt;Route&gt;</li>
+                        <li>&lt;Switch&gt;</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Bind UI & URL using React Router</h3>
+                    <img class="ppt-image" style="width: 650px" data-src="images/reactrouter.png">
+                </section>
+                <section>
+                    <h3>Philosophy</h3>
+                    <ul>
+                        <li>Dynamic Routing</li>
+                        <li>Nested Routes</li>
+                        <li>Responsive Routes</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>&lt;Router></h3>
+                    <ul>
+                        <li>&lt;BrowserRouter></li>
+                        <li>&lt;HashRouter></li>
+                        <li>&lt;MemoryRouter></li>
+                        <pre><code class="hljs" data-trim contenteditable>
+import { BrowserRouter as Router } from 'react-router-dom';
+&lt;Router>
+  &lt;Route path="/" component={App} />
+&lt;/Router>
+                        </code></pre>
+                    </ul>
+                </section>
+                <section>
+                    <h3>&lt;Route&gt; render methods</h3>
+                    <ul>
+                        <li>&lt;Route component&gt;</li>
+                        <pre><code class="hljs" data-trim contenteditable>
+&lt;Route path="/user/:username" component={User}/>
+const User = ({ match }) => {
+  return <h1>Hello {match.params.username}!</h1>
+}
+                                </code></pre>
+                        <li>&lt;Route render&gt;</li>
+                        <pre><code class="hljs" data-trim contenteditable>
+&lt;Route path="/home" render={() => <div>Home</div>}/>
+                                </code></pre>
+                        <li>&lt;Route children&gt;</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Route props</h3>
+                    <ul>
+                        <li>All three render methods will be passed the same three route props: match, location, history</li>
+                        <li><a href="https://reacttraining.com/react-router/web/api/history">history</a>
+                            <ul>
+                                <li>history.push</li>
+                                <li>history.replace</li>
+                            </ul>
+                        </li>
+                        <li><a href="https://reacttraining.com/react-router/web/api/match">match</a>
+                            <ul>
+                                <li>match.parms</li>
+                                <li>match.url</li>
+                            </ul>
+                        </li>
+                        <li><a href="https://reacttraining.com/react-router/web/api/match">location</a>
+                        </li>
+                        <pre><code class="hljs" data-trim contenteditable>
+{
+  key: 'ac3df4', // not with HashHistory!
+  pathname: '/somewhere'
+  search: '?some=search-string',
+  hash: '#howdy',
+  state: {
+    [userDefined]: true
+  }
+}
+                        </code></pre>
+                    </ul>
+                </section>
+                <section>
+                    <h3>&lt;Switch&gt;</h3>
+                    <ul>
+                        <li>Renders the first child &lt;Route&gt; or &lt;Redirect&gt; that matches the location.</li>
+                        <pre><code contenteditable>
+// before:
+<div>
+    &lt;Route path="/about" component={About}/>
+    &lt;Route path="/:user" component={User}/>
+    &lt;Route component={NoMatch}/>
+</div>
+// after:
+<Switch>
+  &lt;Route exact path="/" component={Home}/>
+  &lt;Route path="/about" component={About}/>
+  &lt;Route path="/:user" component={User}/>
+  &lt;Route component={NoMatch}/>
+</Switch>
+                        </code></pre>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3><a>Front-end and Back-end separation</a></h3>
+                </section>
+                <section>
+                    <h3>Why separation</h3>
+                    <ul>
+                        <li>Start work quick</li>
+                        <li>Divide work and work parallel</li>
+                        <li>Deployment felixiblity</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Test requests at different Servers</h3>
+                    <img class="ppt-image" style="width: 750px" data-src="images/testrequests.png">
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3><a>Performance Tuning</a></h3>
+                </section>
+                <section>
+                    <h3>Insepct performance issues with Chrome Dev Tool</h3>
+                    <img class="ppt-image" style="width: 750px" data-src="images/chromedevtool.png">
+                </section>
+                <section>
+                    <h3>Use <a href="https://developers.google.com/speed/pagespeed/insights/?url=google.com&tab=desktop">Page Speed</a> to analyze your website performance</h3>
+                    <img class="ppt-image" data-src="images/pagespeed.png">
+                </section>
+            </section>
+            <section>
+                <h3>Demo: <a href="https://github.com/euler-ui/react-sample">react-sample</a></h3>
+            </section>
+            <section>
+                <h3><a>Overall Diagram</a></h3>
+                <img class="ppt-image" style="width: 100%" data-src="images/high_level_diagram.png">
+            </section>
+            <section>
+                <section>
+                    <h3><a>Thoughts</a></h3>
+                </section>
+                <section>
+                    <p>React is great! But...</p>
+                </section>
+                <section>
+                    <p>from jQuery to React is not easy</p>
+                </section>
+                <section>
+                    <h3>Idea: React Core + jQuery Page Development</h3>
+                    <img class="ppt-image" style="width: 100%" data-src="images/thoughts.png">
+                </section>
+                <section>
+                    <h3>Idea: React Core + jQuery Page Development - Sample</h3>
+                    <img class="ppt-image" style="width: 700px" data-src="images/jquery2react.png">
+                </section>
+                <section>
+                    <h3>Good Performance + Low cost</h3>
+                </section>
+            </section>
+            <section>
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="https://facebook.github.io/react/docs/hello-world.html" target="_blank">React Quck Start</a></li>
+                    <li><a href="http://redux.js.org/" target="_blank">Redux Intro</a></li>
+                    <li><a href="https://reacttraining.com/react-router/web/guides/philosophy" target="_blank">React Router Guides</a></li>
+                    <li><a href="https://github.com/euler-ui/react-sample" target="_blank">React Sample</a></li>
+                    <li><a href="https://github.com/euler-ui/react-sample/blob/master/docs/how_to_setup_ide.md" target="_blank">How to setup JavaScript IDE - VS Code</a></li>
+                    <li><a href="https://github.com/euler-ui/react-sample/blob/master/docs/how_to_debug_code.md" target="_blank">How to debug your code at VS Code</a></li>
+                    <li><a href="https://github.com/euler-ui/react-sample/blob/master/docs/separation_of_fe_be.md" target="_blank">Separation of front-end and back-end</a></li>
+                </ul>
+            </section>
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'convex', // none/fade/slide/convex/concave/zoom
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [{
+            src: 'lib/js/classList.js',
+            condition: function() {
+                return !document.body.classList;
+            }
+        }, {
+            src: 'plugin/markdown/marked.js',
+            condition: function() {
+                return !!document.querySelector('[data-markdown]');
+            }
+        }, {
+            src: 'plugin/markdown/markdown.js',
+            condition: function() {
+                return !!document.querySelector('[data-markdown]');
+            }
+        }, {
+            src: 'plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }, {
+            src: 'plugin/zoom-js/zoom.js',
+            async: true
+        }, {
+            src: 'plugin/notes/notes.js',
+            async: true
+        }]
+    });
+    </script>
+    <a href="https://github.com/euler-ui/react-sample" class="github-corner" aria-label="View source on Github">
+        <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+            <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+            <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+            <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+        </svg>
+    </a>
+</body>
+
+</html>
