@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Polymer in React</title>
+    <meta name="description" content="Polymer in React">
+    <meta name="author" content="Xi Jinxin">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/league.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <style>
+    .reveal .ppt-image {
+        border-style: none;
+        box-shadow: none;
+        background-color: transparent;
+        width: 800px;
+    }
+
+    .reveal .redux-tool__comments {
+        float: right;
+        margin-right: -101px;
+        margin-top: 20px;
+        font-size: 0.7em;
+    }
+    </style>
+    <!-- Printing and PDF exports -->
+    <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="reveal">
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1><a>Polymer in React</a></h1>
+                <h3></h3>
+                <p>
+                    <small><a href="mailto: jonathan.xi@ge.com">Jonathan Xi</a></small>
+                </p>
+            </section>
+            <section>
+                <h2><a>Items</a></h2>
+                <ul>
+                    <li>Why - React + Polymer</li>
+                    <li>How - React + Polymer</li>
+                    <li>Wrapping Polymer elements in React automatically</li>
+                    <li>TODO</li>
+                </ul>
+            </section>
+            <section>
+                <section>
+                    <h3><a>Why - React + Polymer</a></h3>
+                    <ul>
+                        <li>Why React</li>
+                        <li>Why Polymer</li>
+                        <li>Why React + Polymer</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><a href="https://shinxi.github.io/react-intro/#/2">Why React</a></h3>
+                    <ul>
+                        <li>Easy</li>
+                        <li>JSX</li>
+                        <li>Component-based Architecture</li>
+                        <li>Virtual Dom</li>
+                        <li>Learn Once, Write Anywhere</li>
+                        <li>Great Devtools</li>
+                        <li>Great Community</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Why Polymer</h3>
+                    <ul>
+                        <li class="fragment">Predix-UI is using polymer...</li>
+                        <li>Custom Elements</li>
+                        <li>Shadow Doms</li>
+                        <li>...</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Why React + Polymer</h3>
+                    <ul>
+                        <li>Awesome React Features</li>
+                        <li>Awesome Predix-UI Components</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Why React + Polymer</h3>
+                    <img class="ppt-image" style="width: 100%" data-src="images/landscape.png">
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3><a>How - React + Polymer</a></h3>
+                </section>
+                <section>
+                    <h3>Term</h3>
+                    <p>
+                        A predix-ui component is a polymer Element that is managed by Bower as a bower component.
+                    </p>
+                </section>
+                <section>
+                    <h3>Integrate Flow</h3>
+                    <p>
+                        Integrate Predix Component -> Integrate Polymer Element -> Integrate with bower.
+                    </p>
+                </section>
+                <section>
+                    <h3>Sample: Integrate px-dropdown to sample-app</h3>
+                </section>
+                <section>
+                    <div style="width:1080px">create-react-app --scripts-version @svmx/react-scripts sample-app </div>
+                </section>
+                <section>
+                    <h3>Integrate Bower</h3>
+                    <ol>
+                        <li>Install Bower</li>
+                        <code>npm install -g bower</code>
+                        <li>Install Bower Dependencies</li>
+                        <code>
+                          cd sample-app<br>
+                          bower init<br>
+                          bower install --save Polymer@^1.9.1<br>
+                          bower install --save px-dropdown<br>
+                        </code>
+                    </ol>
+                </section>
+                <section>
+                    <h3>Integrate Polymer Element</h3>
+                    <ol>
+                        <li>Include Webcomponents polyfills</li>
+                        <li>Load Bower component for Polymer Element</li>
+                        <li>Map Polymer attributes(in dash) to React properties(in camelCase)</li>
+                        <li>Register/Listern events for Polymer Element</li>
+                    </ol>
+                </section>
+                <section>
+                    <h3><a href="https://github.com/ServiceMax-Engineering/react-polymer-demo/blob/master/src/components/Dropdown/Dropdown.v1.js">V1</a></h3>
+                    <p>
+                        <a href="https://github.com/jscissr/react-polymer">react-polymer</a> + <a href="https://github.com/webpack-contrib/polymer-webpack-loader">polymer-webpack-loader</a>
+                    </p>
+                </section>
+                <section>
+                    <h3><a href="https://github.com/ServiceMax-Engineering/react-polymer-demo/blob/master/src/components/Dropdown/Dropdown.v2.js">V2</a></h3>
+                    <p>
+                        loadBowerComponent + addEventListener
+                    </p>
+                </section>
+                <section>
+                    <h3><a href="https://github.com/ServiceMax-Engineering/react-polymer-demo/blob/master/src/components/Dropdown/Dropdown.js">V3</a></h3>
+                    <p>
+                        withReactWrapper(<a href="https://reactjs.org/docs/higher-order-components.html">Higher-Order Component</a>)
+                    </p>
+                </section>
+                <section>
+                    But,
+                    <div>when you look at <a href="https://www.predix-ui.com/#/elements/px-dropdown:properties">px-dropdown:properties</a>...
+                    </div>
+                </section>
+                <section data-background="images/crazy.gif">
+                    <div>Much work to do...
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3><a>Wrapping Polymer elements in React automatically</a></h3>
+                </section>
+                <section>
+                    <h3>Imagine if you just need</h3>
+                    <pre><code class="hljs" data-trim>
+bower install --save px-dropdown
+npm run create-polymer-in-react px-dropdown
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>It's already at <a href="https://github.com/ServiceMax-Engineering/ui-components-predix">ui-components-predix</a>!</h3>
+                    <ol style="width:1080px">
+                        <li>Clone your fork.</li>
+                        <pre><code>git clone git@github.com:shinxi/ui-components-predix.git</code></pre>
+                        <li>Install</li>
+                        <pre><code class="hljs" data-trim>
+cd ui-components-predix
+npm install
+bower install
+                        </code></pre>
+                        <li>Install Bower Component</li>
+                        <pre><code>bower install --save px-dropdown</code></pre>
+                        <li>Create polymer in react</li>
+                        <pre><code>npm run polymer px-dropdown</code></pre>
+                        <li>Check outputs.</li>
+                    </ol>
+                </section>
+                <section>
+                    <h3>You can also create polymer:all in one time</h3>
+                    <ol style="width:1080px">
+                        <pre><code class="hljs" data-trim>
+bower install --save px-dropdown
+bower install --save px-spinner
+bower install --save px-progress-bar
+...
+npm run polymer:all
+                        </code></pre>
+                    </ol>
+                </section>
+                <section>
+                    <h3>Status</h3>
+                    <table style="font-size: 26px; float:left">
+                        <thead>
+                            <tr>
+                                <th>Integrated Predix Component</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>px-toggle</td>
+                            </tr>
+                            <tr>
+                                <td>px-dropdown</td>
+                            </tr>
+                            <tr>
+                                <td>px-spinner</td>
+                            </tr>
+                            <tr>
+                                <td>px-popover</td>
+                            </tr>
+                            <tr>
+                                <td>px-progress-bar</td>
+                            </tr>
+                            <tr>
+                                <td>px-calendar-picker</td>
+                            </tr>
+                            <tr>
+                                <td>px-tooltip</td>
+                            </tr>
+                            <tr>
+                                <td>px-datetime-picker</td>
+                            </tr>
+                            <tr>
+                                <td>px-app-nav</td>
+                            </tr>
+                            <tr>
+                                <td>px-view-header</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table style="font-size: 26px; ">
+                        <thead>
+                            <tr>
+                                <th>TODO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>px-tree</td>
+                            </tr>
+                            <tr>
+                                <td>px-data-table</td>
+                            </tr>
+                            <tr>
+                                <td>px-tabs</td>
+                            </tr>
+                            <tr>
+                                <td>px-modal?</td>
+                            </tr>
+                            <tr>
+                                <td>px-branding-bar?</td>
+                            </tr>
+                            <tr>
+                                <td>px-icon?</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3>One more thing</h3>
+                    <div style="text-align:left">It's not only for Predix Component, but also other Polymer Element e.g, <a href="https://www.webcomponents.org/collection/PolymerElements/paper-elements">paper-elements.</a></div>
+                    <pre><code class="hljs" data-trim>
+bower install --save paper-swatch-picker
+npm run polymer paper-swatch-picker
+                    </code></pre>
+              </section>
+            </section>
+            <section>
+                <section>
+                    <h3>TODOs</h3>
+                </section>
+                <section>
+                <h3>Components to add</h3>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>px-tree</td>
+                            </tr>
+                            <tr>
+                                <td>px-data-table</td>
+                            </tr>
+                            <tr>
+                                <td>px-tabs</td>
+                            </tr>
+                            <tr>
+                                <td>px-modal?</td>
+                            </tr>
+                            <tr>
+                                <td>px-branding-bar?</td>
+                            </tr>
+                            <tr>
+                                <td>px-icon?</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3>MAX-5008</h3>
+                    <ul>
+                        <li>Performance Comparation on React vs React + Predix/Polymer
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>MAX-5141</h3>
+                    <ul>
+                        <li>Flesh out test template of create-polymer-in-react script
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Sample Polish</h3>
+                </section>
+                <section>
+                    <h3>Predix upgrade?</h3>
+                    From Polymer 1.X to 2.X
+                </section>
+            </section>
+            <section>
+                <h3>Q&A</h3>
+            </section>
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'convex', // none/fade/slide/convex/concave/zoom
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [{
+            src: 'lib/js/classList.js',
+            condition: function() {
+                return !document.body.classList;
+            }
+        }, {
+            src: 'plugin/markdown/marked.js',
+            condition: function() {
+                return !!document.querySelector('[data-markdown]');
+            }
+        }, {
+            src: 'plugin/markdown/markdown.js',
+            condition: function() {
+                return !!document.querySelector('[data-markdown]');
+            }
+        }, {
+            src: 'plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }, {
+            src: 'plugin/zoom-js/zoom.js',
+            async: true
+        }, {
+            src: 'plugin/notes/notes.js',
+            async: true
+        }]
+    });
+    </script>
+</body>
+
+</html>
