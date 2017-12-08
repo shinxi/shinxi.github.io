@@ -1,27 +1,21 @@
 <link rel="import" href="https://polygit.org/components/polymer/polymer-element.html">
 <dom-module id="x-bar">
-
-	<template>
-
-		<style>
-			.x-bar-content {
-				width: 100px;
-				height: 100px;
-				background-color: red;
-			}
-		</style>
-
-		<div class="x-bar-content">
-			<slot></slot>
-		</div>
-
-	</template>
-
-	<script>
-		class Bar extends Polymer.Element {
-      static get is() { return 'x-bar'; }
+    <template>
+        <style>
+        .x-bar-content {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+        </style>
+        <div class="x-bar-content">
+            <slot></slot>
+        </div>
+    </template>
+    <script>
+    class Bar extends Polymer.Element {
+        static get is() { return 'x-bar'; }
     }
     customElements.define(Bar.is, Bar);
-	</script>
-
+    </script>
 </dom-module>
