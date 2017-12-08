@@ -1,0 +1,31 @@
+<link rel="import" href="https://polygit.org/components/polymer/polymer.html" />
+<link rel="import" href="https://shinxi.github.io/test/v1/x-bar.html">
+<dom-module id="x-foo">
+    <template>
+        <style>
+        .x-foo-content {
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+        }
+        </style>
+        <div class="x-foo-content">
+            <x-bar>
+                <content></content>
+            </x-bar>
+        </div>
+    </template>
+</dom-module>
+<script>
+Polymer({
+    is: 'x-foo',
+
+    ready: function() {
+        debugger;
+    },
+    created: function() {
+        debugger;
+    },
+
+});
+</script>

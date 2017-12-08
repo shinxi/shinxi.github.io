@@ -17,6 +17,11 @@
     <script>
     class Bar extends Polymer.Element {
         static get is() { return 'x-bar'; }
+
+        ready() {
+            super.ready();
+            debugger;
+        }
     }
     customElements.define(Bar.is, Bar);
     </script>

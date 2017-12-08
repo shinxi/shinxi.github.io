@@ -18,6 +18,11 @@
     <script>
     class Foo extends Polymer.Element {
         static get is() { return 'x-foo'; }
+
+        ready() {
+            super.ready();
+            debugger;
+        }
     }
     customElements.define(Foo.is, Foo);
     </script>
