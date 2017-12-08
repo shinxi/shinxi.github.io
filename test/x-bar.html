@@ -3,13 +3,15 @@
     <template>
         <style>
         .x-bar-content {
-            width: 100px;
+            width: 200px;
             height: 100px;
             background-color: red;
         }
         </style>
         <div class="x-bar-content">
+            <div>Text before slot</div>
             <slot></slot>
+            <div>Text after slot</div>
         </div>
     </template>
     <script>
