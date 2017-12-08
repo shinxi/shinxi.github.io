@@ -1,0 +1,29 @@
+<link rel="import" href="https://polygit.org/components/polymer/polymer-element.html">
+<link rel="import" href="https://shinxi.github.io/test/x-bar.html">
+<dom-module id="x-foo">
+
+	<template>
+
+		<style>
+			.x-foo-content {
+				width: 100px;
+				height: 200px;
+				border: 1px solid black;
+			}
+		</style>
+		<div class="x-foo-content">
+			<bar>
+				<slot></slot>
+			</bar>
+		</div>
+
+	</template>
+
+	<script>
+		class Foo extends Polymer.Element {
+      static get is() { return 'x-foo'; }
+    }
+    customElements.define(Foo.is, Foo);
+	</script>
+
+</dom-module>
