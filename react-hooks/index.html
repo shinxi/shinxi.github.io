@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>React Hooks Introduction</title>
+    <meta
+      name="description"
+      content="React Hooks Introduction"
+    />
+    <meta name="author" content="Xi Jinxin" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="css/reveal.css" />
+    <link rel="stylesheet" href="css/theme/league.css" id="theme" />
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css" />
+    <style>
+      .reveal .ppt-image {
+        border-style: none;
+        box-shadow: none;
+        background-color: transparent;
+        width: 800px;
+      }
+
+      .reveal .redux-tool__comments {
+        float: right;
+        margin-right: -101px;
+        margin-top: 20px;
+        font-size: 0.7em;
+      }
+    </style>
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.type = "text/css";
+      link.href = window.location.search.match(/print-pdf/gi)
+        ? "css/print/pdf.css"
+        : "css/print/paper.css";
+      document.getElementsByTagName("head")[0].appendChild(link);
+    </script>
+    <!--[if lt IE 9]>
+      <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <h1><a>React Hooks</a></h1>
+          <h3></h3>
+          <p>
+            <small><a href="mailto: jinxin.xi@servicemax.com"></a></small>
+          </p>
+        </section>
+        <section>
+          <h2><a>Items</a></h2>
+          <ul>
+            <li>Why, What and When</li>
+            <li>How</li>
+            <li>Other Built-in hooks</li>
+            <li>Rules of hooks</li>
+            <li>Custom hooks</li>
+            <li>Demo</li>
+            <li>Testing</li>
+            <li>Resources</li>
+          </ul>
+        </section>
+        <section>
+          <section>
+            <h2><a>Why, What and When</a></h2>
+          </section>
+          <section>
+            <h3><a>Why</a></h3>
+          </section>
+          <section>
+            <h3>Example</h3>
+            <pre class="fragment">
+                <code class="hljs" contenteditable>class Hello extends React.PureComponent {
+        state = {
+            name: 'Harry',
+            surname: 'Potter',
+            width: window.innerWidth,
+        };
+        
+        componentDidMount() {
+            window.addEventListener('resize', this.handleResize);
+            document.title = `${this.state.name} ${this.state.surname}`;
+        }
+        
+        componentDidUpdate() {
+            document.title = `${this.state.name} ${this.state.surname}`;
+        }
+        
+        componentWillUnmount() {
+            window.removeEventListener('resize', this.handleResize);
+        }
+        
+        onNameChange = event => {
+            this.setState({ name: event.target.value });
+        };
+        
+        onSurnameChange = event => {
+            this.setState({ surname: event.target.value });
+        };
+        
+        handleResize = () => {
+            this.setState({ width: window.innerWidth });
+        };
+        
+        render() {
+            const { name, surname, width } = this.state;
+            return (
+            <div className="Hello Hello--default">
+                <form>
+                <div>
+                    <label htmlFor="name">Name: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id="name" onChange={this.onNameChange} value={name} />
+                </div>
+                <div>
+                    <label htmlFor="surname">Surname: </label>
+                    <input id="surname" onChange={this.onSurnameChange} value={surname} />
+                </div>
+                <br />
+                <div>
+                    <label htmlFor="width">Window innerWidth: </label>
+                    <span>{width}</span>
+                </div>
+                </form>
+            </div>
+            );
+        }
+}
+        
+export default Hello;
+            </code></pre>
+          </section>
+          <section>
+            <h3>Problem</h3>
+            <ul>
+              <li>
+                Use two lifecycle methods to update document.title - duplicate
+                code
+              </li>
+              <li>
+                Use two lifecycle methods to register and clean the event
+                listener - split logic
+              </li>
+              <li>
+                Unrelated logic in one lifecycle method.
+              </li>
+              <li>*ability</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Why</h3>
+            <ul>
+              <li>
+                Class lifecycle methods often contain unrelated logic, but
+                related logic gets broken up into several methods.
+              </li>
+              <li>Duplicated logic between different components and lifecycle
+                methods.</li>
+              <li>It’s hard to reuse stateful logic between components.</li>
+              <li>Classes are hard to learn.</li>
+              <li>
+                Function components are not able to use state and lifecycle
+                methods.
+              </li>
+            </ul>
+            <aside class="notes">
+              Class lifecycle methods often contain unrelated logic, but related
+              logic gets broken up into several methods. - Huge Components
+              Duplicated logic between different components and lifecycle
+              methods. It’s hard to reuse stateful logic between components. -
+              Complex patterns like render props and higher-order components.
+            </aside>
+          </section>
+          <section>
+            <h3>What</h3>
+            <ul>
+              <li>
+                Hooks let you organize side effects in a component by what
+                pieces are related (such as adding and removing a subscription),
+                rather than forcing a split based on lifecycle methods.
+              </li>
+              <li>
+                Hooks are functions that let you “hook into” React state and
+                lifecycle features from function components. Hooks don’t work
+                inside classes — they let you use React without classes.
+              </li>
+            </ul>
+            <aside class="notes"></aside>
+          </section>
+          <section>
+            <h3>When</h3>
+            <ul>
+              <li>
+                Class lifecycle methods contain unrelated logic, and related
+                logic gets broken up into several methods.
+              </li>
+              <li>Share stateful logic between components.</li>
+              <li>
+                If you write a function component and realize you need to add
+                some state to it.
+              </li>
+            </ul>
+            <aside class="notes"></aside>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2><a>How</a></h2>
+          </section>
+          <section>
+            <h3>useState</h3>
+            <ul>
+              <li>const [state, setState] = useState(initialState);</li>
+              <li>Returns a stateful value, and a function to update it.</li>
+              <li>
+                During the initial render, the returned state = initialState.
+              </li>
+              <li>
+                The setState function is used to update the state. It accepts a
+                new state value or a function by using the previous state, and
+                enqueues a re-render of the component.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h3>Example</h3>
+            <pre>
+                <code class="hljs" contenteditable><script type="text/template">
+
+function Counter({initialCount}) {
+    const [count, setCount] = useState(initialCount);
+    return (
+        <>
+        Count: {count}
+        <button onClick={() => setCount(initialCount)}>Reset</button>
+        <button onClick={() => setCount(prevCount => prevCount - 1)}>-</button>
+        <button onClick={() => setCount(prevCount => prevCount + 1)}>+</button>
+        </>
+    );
+}
+
+</script></code>
+            </pre>
+          </section>
+          <section>
+            <h3>useEffect</h3>
+            <ul>
+              <li>useEffect(didUpdate);</li>
+              <li>
+                Data fetching, setting up a subscription, and manually changing
+                the DOM in React components are all examples of side effects.
+              </li>
+              <li>
+                Accepts a function that contains imperative, possibly effectful
+                code.
+              </li>
+              <li>
+                The function passed to useEffect will run after the render is
+                committed to the screen - fires after layout and paint, so it
+                won't block the browser from updating the screen.
+              </li>
+              <li>
+                Although useEffect is deferred until after the browser has
+                painted, it’s guaranteed to fire before any new renders. React
+                will always flush a previous render’s effects before starting a
+                new update.
+              </li>
+            </ul>
+            <aside class="notes">
+              Timing of effects -> cleaning up -> conditionally for performance
+            </aside>
+          </section>
+          <section>
+            <ul>
+              <li>
+                By default, effects run after every completed render, but you
+                can choose to fire them only when certain values have changed.
+              </li>
+              <li>
+                The function passed to useEffect may return a clean-up function.
+                The clean-up function runs before the component is removed from
+                the UI to prevent memory leaks.
+              </li>
+              <li>
+                If you’re familiar with React class lifecycle methods, you can
+                think of useEffect Hook as componentDidMount,
+                componentDidUpdate, and componentWillUnmount combined.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h3>Example</h3>
+            <pre>
+                <code class="hljs" contenteditable><script type="text/template">
+
+import React, { useState, useEffect } from 'react';
+
+function Example() {
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        document.title = `You clicked ${count} times`;
+    });
+
+    return (
+    <div>
+        <p>You clicked {count} times</p>
+        <button onClick={() => setCount(count + 1)}>
+        Click me
+        </button>
+    </div>
+    );
+}
+
+</script></code>
+            </pre>
+            <aside class="notes">
+              In React class components, the render method itself shouldn’t
+              cause side effects. It would be too early — we typically want to
+              perform our effects after React has updated the DOM. This is why
+              in React classes, we put side effects into componentDidMount and
+              componentDidUpdate. Coming back to our example, here is a React
+              counter class component that updates the document title right
+              after React makes changes to the DOM:
+            </aside>
+          </section>
+          <section>
+            <h3>Example</h3>
+            <pre>
+                <code class="hljs" contenteditable><script type="text/template">
+
+useEffect(() => {
+    const subscription = props.source.subscribe();
+    return () => {
+        // Clean up the subscription
+        subscription.unsubscribe();
+    };
+});
+
+</script></code>
+            </pre>
+            <aside class="notes">
+              The clean-up function runs before the component is removed from
+              the UI to prevent memory leaks. Additionally, if a component
+              renders multiple times (as they typically do), the previous effect
+              is cleaned up before executing the next effect.
+            </aside>
+          </section>
+          <section>
+            <h3>Example</h3>
+            <pre>
+                <code class="hljs" contenteditable><script type="text/template">
+useEffect(
+    () => {
+        const subscription = props.source.subscribe();
+        return () => {
+            subscription.unsubscribe();
+        };
+    },
+    [props.source],
+);
+</script></code>
+            </pre>
+            <pre>
+                <code class="hljs" contenteditable>
+useEffect(() => {
+    function doSomething() {
+      console.log('hello');
+    }
+  
+    doSomething();
+  }, []);</code>
+            </pre>
+            <aside class="notes">
+              We don’t need to create a new subscription on every update, only
+              if the source prop has changed.
+            </aside>
+          </section>
+          <section>
+            <h3>useEffect</h3>
+            Declare functions needed by an effect inside of it.
+            <pre>
+                <code class="hljs" contenteditable><script type="text/template">
+function Example({ someProp }) {
+    function doSomething() {
+        console.log(someProp);
+    }
+    
+    useEffect(() => {
+        doSomething();
+    }, []); // 🔴 This is not safe (it calls `doSomething` which uses `someProp`)
+}
+
+function Example({ someProp }) {
+    useEffect(() => {
+      function doSomething() {
+        console.log(someProp);
+      }
+  
+      doSomething();
+    }, [someProp]); // ✅ OK (our effect only uses `someProp`)
+}
+</script></code>
+            </pre>
+            <aside class="notes">
+            </aside>
+          </section>
+          <section>
+            <h3>useEffect</h3>
+            If for some reason you can’t move a function inside an effect:
+            <ul>
+                <li>
+                    You can try moving that function outside of your component.
+                </li>
+                <li>
+                    If the function you’re calling is a pure computation and is safe to call while rendering, you may call it outside of the effect instead, and make the effect depend on the returned value.
+                </li>
+                <li>
+                    As a last resort, you can add a function to effect dependencies but wrap its definition into the useCallback Hook. This ensures it doesn’t change on every render unless its own dependencies also change:
+                </li>
+            </ul>
+            <aside class="notes">
+            </aside>
+          </section>
+          <section>
+            <h3>useEffect + useCallback</h3>
+            <pre>
+                <code class="hljs" contenteditable><script type="text/template">
+function ProductPage({ productId }) {
+    // ✅ Wrap with useCallback to avoid change on every render
+    const fetchProduct = useCallback(() => {
+        // ... Does something with productId ...
+    }, [productId]); // ✅ All useCallback dependencies are specified
+    
+    return <ProductDetails fetchProduct={fetchProduct} />;
+}
+    
+function ProductDetails({ fetchProduct }) {
+    useEffect(() => {
+        fetchProduct();
+    }, [fetchProduct]); // ✅ All useEffect dependencies are specified
+    // ...
+}
+</script></code>
+            </pre>
+            <aside class="notes">
+            </aside>
+          </section>
+          <section>
+            <h3>useEffect</h3>
+            <pre>
+                <code class="hljs" contenteditable><script type="text/template">
+function Counter() {
+    const [count, setCount] = useState(0);
+    
+    useEffect(() => {
+        const id = setInterval(() => {
+            setCount(count + 1); // This effect depends on the `count` state
+        }, 1000);
+        return () => clearInterval(id);
+    }, []); // 🔴 Bug: `count` is not specified as a dependency
+    
+    return <h1>{count}</h1>;
+}
+</script></code>
+            </pre>
+            <aside class="notes">The empty set of dependencies, [], means that the effect will only run once when the component mounts, and not on every re-render. The problem is that inside the setInterval callback, the value of count does not change, because we’ve created a closure with the value of count set to 0 as it was when the effect callback ran. Every second, this callback then calls setCount(0 + 1), so the count never goes above 1.
+
+                Specifying [count] as a list of dependencies would fix the bug, but would cause the interval to be reset on every change. Effectively, each setInterval would get one chance to execute before being cleared (similar to a setTimeout.) That may not be desirable.
+            </aside>
+          </section>
+          <section>
+            <h3>useEffect: functional update</h3>
+            To fix this, we can use the functional update form of setState.
+            <pre>
+                <code class="hljs" contenteditable><script type="text/template">
+
+    
+function Counter() {
+    const [count, setCount] = useState(0);
+    
+    useEffect(() => {
+        const id = setInterval(() => {
+            setCount(c => c + 1); // ✅ This doesn't depend on `count` variable outside
+        }, 1000);
+        return () => clearInterval(id);
+    }, []); // ✅ Our effect doesn't use any variables in the component scope
+    
+    return <h1>{count}</h1>;
+}
+</script></code>
+            </pre>
+            <aside class="notes">
+            </aside>
+          </section>
+          <section>
+            <h3>useEffect + useRef</h3>
+            useRef as last resort.
+            <pre>
+                <code class="hljs" contenteditable><script type="text/template">
+
+    
+function Example(props) {
+    // Keep latest props in a ref.
+    const latestProps = useRef(props);
+    useEffect(() => {
+        latestProps.current = props;
+    });
+
+    useEffect(() => {
+        function tick() {
+            // Read latest props at any time
+            console.log(latestProps.current);
+        }
+
+        const id = setInterval(tick, 1000);
+        return () => clearInterval(id);
+    }, []); // This effect never re-runs
+}
+</script></code>
+            </pre>
+            <aside class="notes">
+            </aside>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>Other built-in hooks</h3>
+            <ul>
+              <li>useContext</li>
+              <li>useReducer</li>
+              <li>useMemo</li>
+              <li>useCallback</li>
+              <li>useRef</li>
+              <li>useImperativeHandle</li>
+              <li>useLayoutEffect</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Example: useContext</h3>
+            const value = useContext(MyContext);
+            <pre>
+                <code class="hljs" contenteditable><script type="text/template">
+const themes = {
+    light: {
+        foreground: "#000000",
+        background: "#eeeeee"
+    },
+    dark: {
+        foreground: "#ffffff",
+        background: "#222222"
+    }
+};
+    
+const ThemeContext = React.createContext(themes.light);
+    
+function App() {
+    return (
+        <ThemeContext.Provider value={themes.dark}>
+            <Toolbar />
+        </ThemeContext.Provider>
+    );
+}
+    
+function Toolbar(props) {
+    return (
+        <div>
+            <ThemedButton />
+        </div>
+    );
+}
+    
+function ThemedButton() {
+    const theme = useContext(ThemeContext);
+    return (
+        <button style={{ background: theme.background, color: theme.foreground }}>
+        I am styled by theme context!
+        </button>
+);
+}
+</script></code>
+            </pre>
+            <aside class="notes">
+                Common examples where using context might be simpler than the alternatives include managing the current locale, theme, or a data cache.
+                If you’re familiar with the context API before Hooks, useContext(MyContext) is equivalent to static contextType = MyContext in a class, or to <MyContext.Consumer>.
+
+                useContext(MyContext) only lets you read the context and subscribe to its changes. You still need a <MyContext.Provider> above in the tree to provide the value for this context.</aside>
+          </section>
+          <section>
+            <h3>Example: useReducer</h3>
+            const [state, dispatch] = useReducer(reducer, initialArg, init);
+            <pre>
+                <code class="hljs" contenteditable><script type="text/template">
+const initialState = {count: 0};
+
+function reducer(state, action) {
+    switch (action.type) {
+    case 'increment':
+        return {count: state.count + 1};
+    case 'decrement':
+        return {count: state.count - 1};
+    default:
+        throw new Error();
+    }
+}
+
+function Counter() {
+    const [state, dispatch] = useReducer(reducer, initialState);
+    return (
+    <>
+        Count: {state.count}
+        <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+        <button onClick={() => dispatch({type: 'increment'})}>+</button>
+    </>
+    );
+}
+</script></code>
+            </pre>
+            <aside class="notes">
+                An alternative to useState. Accepts a reducer of type (state, action) => newState, and returns the current state paired with a dispatch method. (If you’re familiar with Redux, you already know how this works.)
+                useReducer is usually preferable to useState when you have complex state logic that involves multiple sub-values or when the next state depends on the previous one.
+            </aside>
+          </section>
+          <section>
+            <h3>Example: useReducer + useContext</h3>
+            Use "useReducer + useContext" to avoid pass callbacks through every level of a component tree.
+            <pre>
+                <code class="hljs" contenteditable><script type="text/template">
+
+const TodosDispatch = React.createContext(null);
+
+function TodosApp() {
+    // Note: `dispatch` won't change between re-renders
+    const [todos, dispatch] = useReducer(todosReducer);
+
+    return (
+    <TodosDispatch.Provider value={dispatch}>
+        <DeepTree todos={todos} />
+    </TodosDispatch.Provider>
+    );
+}
+
+function DeepChild(props) {
+    // If we want to perform an action, we can get dispatch from context.
+    const dispatch = useContext(TodosDispatch);
+
+    function handleClick() {
+        dispatch({ type: 'add', text: 'hello' });
+    }
+
+    return (
+        <button onClick={handleClick}>Add todo</button>
+    );
+}
+
+</script></code>
+            </pre>
+            <aside class="notes">
+            </aside>
+          </section>
+          <section>
+            <h3>Example: useCallback/useMemo</h3>
+            useCallback(fn, deps) is equivalent to useMemo(() => fn, deps).
+            <pre>
+                <code class="hljs" contenteditable><script type="text/template">
+
+const memoizedCallback = useCallback(
+    () => {
+        doSomething(a, b);
+    },
+    [a, b],
+);
+
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+
+</script></code>
+            </pre>
+            <aside class="notes">
+                useCallback will return a memoized version of the callback that only changes if one of the dependencies has changed.
+                This is useful when passing callbacks to optimized child components that rely on reference equality to prevent unnecessary renders (e.g. shouldComponentUpdate).
+                useMemo: Pass a “create” function and an array of dependencies. useMemo will only recompute the memoized value when one of the dependencies has changed. This optimization helps to avoid expensive calculations on every render.
+
+            </aside>
+          </section>
+          <section>
+            <h3>Example: useRef</h3>
+            const refContainer = useRef(initialValue);
+            <pre>
+                <code class="hljs" contenteditable><script type="text/template">
+
+function TextInputWithFocusButton() {
+    const inputEl = useRef(null);
+    const onButtonClick = () => {
+        // `current` points to the mounted text input element
+        inputEl.current.focus();
+    };
+    return (
+        <>
+            <input ref={inputEl} type="text" />
+            <button onClick={onButtonClick}>Focus the input</button>
+        </>
+    );
+}
+
+</script></code>
+            </pre>
+            <aside class="notes">
+                useRef returns a mutable ref object whose .current property is initialized to the passed argument (initialValue). The returned object will persist for the full lifetime of the component.
+                Essentially, useRef is like a “box” that can hold a mutable value in its .current property.
+            </aside>
+          </section>
+        </section>
+        <section>
+          <h3>Rules of Hooks</h3>
+          <ul>
+            <li>
+              Only call Hooks at the top level. Don’t call Hooks inside loops,
+              conditions, or nested functions.
+            </li>
+            <li>
+              Only call Hooks from React function components. Don’t call Hooks
+              from regular JavaScript functions. (There is just one other valid
+              place to call Hooks — your own custom Hooks.)
+            </li>
+          </ul>
+        </section>
+        <section>
+          <section>
+            <h3>Custom hooks</h3>
+            Building your own Hooks lets you extract component logic into reusable functions.
+          </section>
+          <section>
+            <h3>Example</h3>
+            <pre>
+                <code class="hljs" contenteditable><script type="text/template">
+import React, { useState, useEffect } from 'react';
+
+// displays a message indicating whether a friend is online or offline in a chat application
+function FriendStatus(props) {
+    const [isOnline, setIsOnline] = useState(null);
+    useEffect(() => {
+    function handleStatusChange(status) {
+        setIsOnline(status.isOnline);
+    }
+    ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);
+    return () => {
+        ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);
+    };
+    });
+
+    if (isOnline === null) {
+    return 'Loading...';
+    }
+    return isOnline ? 'Online' : 'Offline';
+}
+
+// contact list in chat application, and we want to render names of online users with a green color
+function FriendListItem(props) {
+  const [isOnline, setIsOnline] = useState(null);
+  useEffect(() => {
+    function handleStatusChange(status) {
+      setIsOnline(status.isOnline);
+    }
+    ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);
+    return () => {
+      ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);
+    };
+  });
+
+  return (
+    <li style={{ color: isOnline ? 'green' : 'black' }}>
+      {props.friend.name}
+    </li>
+  );
+}
+</script></code>
+            </pre>
+            <aside class="notes">
+            Traditionally in React, we’ve had two popular ways to share stateful logic between components: render props and higher-order components. We will now look at how Hooks solve many of the same problems without forcing you to add more components to the tree.
+            https://reactjs.org/docs/render-props.html
+            https://reactjs.org/docs/higher-order-components.html
+            </aside>
+          </section>
+          <section>
+            <h3>Example</h3>
+            <pre>
+                <code class="hljs" contenteditable><script type="text/template">
+import { useState, useEffect } from 'react';
+
+function useFriendStatus(friendID) {
+    const [isOnline, setIsOnline] = useState(null);
+
+    useEffect(() => {
+        function handleStatusChange(status) {
+            setIsOnline(status.isOnline);
+        }
+
+        ChatAPI.subscribeToFriendStatus(friendID, handleStatusChange);
+        return () => {
+            ChatAPI.unsubscribeFromFriendStatus(friendID, handleStatusChange);
+        };
+    });
+
+    return isOnline;
+}
+
+function FriendStatus(props) {
+    const isOnline = useFriendStatus(props.friend.id);
+  
+    if (isOnline === null) {
+      return 'Loading...';
+    }
+    return isOnline ? 'Online' : 'Offline';
+  }
+
+function FriendListItem(props) {
+    const isOnline = useFriendStatus(props.friend.id);
+  
+    return (
+      <li style={{ color: isOnline ? 'green' : 'black' }}>
+        {props.friend.name}
+      </li>
+    );
+}
+</script></code>
+            </pre>
+            <aside class="notes"></aside>
+          </section>
+        </section>
+        <section>
+              <h3>Demo</h3>
+              <ul>
+                  <li><a href="https://github.com/ServiceMax-Engineering/react-hooks-examples" target="_blank">react-hooks-examples</a></li>
+                  <li><a href="https://github.com/ServiceMax-Engineering/neocore-dc2-ui/pull/2444" target="_blank">neocore-dc2-ui</a></li>
+                  <li><a href="https://github.com/ServiceMax-Engineering/neocore-ui-components/pull/833" target="_blank">neocore-ui-components</a></li>
+            </ul>
+        </section>
+        <section>
+            <section>
+                <h3>Testing</h3>
+            </section>
+            <section>
+                <h3>Enzyme.shallow issues</h3>
+                <ul>
+                <li>
+                    useEffect() and useLayoutEffect() don't get called in the React shallow renderer.
+                </li>
+                <li>
+                    useCallback() doesn't memoize callback in React shallow renderer.
+                </li>
+                </ul>
+            </section>
+            <section>
+                <h3>Work-arounds</h3>
+                <ul>
+                <li>
+                    mock useEffect/useLayoutEffect by jest-react-hooks-shallow 
+                </li>
+                <li>
+                    mock effect cleanup
+                </li>
+                <li>
+                    mock useRef
+                </li>
+                </ul>
+            </section>
+        </section>
+        <section>
+          <h3>Resources</h3>
+          <ul>
+            <li>
+              <a href="https://servicemax.atlassian.net/wiki/spaces/MAX/pages/2902523914/Adopt+React+hooks" target="_blank"
+                >React Hooks confluence page</a
+              >
+            </li>
+            <li>
+              <a href="https://shinxi.github.io/react-hooks/" target="_blank"
+                >React Hooks SB internal training</a
+              >
+            </li>
+            <li>
+              <a href="https://reactjs.org/docs/hooks-intro.html" target="_blank"
+                >React Hooks official docs</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://medium.com/@dan_abramov/making-sense-of-react-hooks-fdbde8803889"
+                target="_blank"
+                >Making Sense of React Hooks</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.youtube.com/watch?v=dpw9EHDh2bM"
+                target="_blank"
+                >React Today and Tomorrow and 90% Cleaner React With Hooks</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://github.com/reactjs/rfcs/blob/main/text/0068-react-hooks.md"
+                target="_blank"
+                >React Hooks RFC</a
+              >
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: "convex", // none/fade/slide/convex/concave/zoom
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          {
+            src: "lib/js/classList.js",
+            condition: function () {
+              return !document.body.classList;
+            },
+          },
+          {
+            src: "plugin/markdown/marked.js",
+            condition: function () {
+              return !!document.querySelector("[data-markdown]");
+            },
+          },
+          {
+            src: "plugin/markdown/markdown.js",
+            condition: function () {
+              return !!document.querySelector("[data-markdown]");
+            },
+          },
+          {
+            src: "plugin/highlight/highlight.js",
+            async: true,
+            callback: function () {
+              hljs.initHighlightingOnLoad();
+            },
+          },
+          {
+            src: "plugin/zoom-js/zoom.js",
+            async: true,
+          },
+          {
+            src: "plugin/notes/notes.js",
+            async: true,
+          },
+        ],
+      });
+    </script>
+  </body>
+</html>
